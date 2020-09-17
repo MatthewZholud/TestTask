@@ -1,4 +1,4 @@
-module mod
+module github.com/MatthewZholud/TestTask/CompanyManager
 
 go 1.15
 
