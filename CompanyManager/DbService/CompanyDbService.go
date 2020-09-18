@@ -30,7 +30,7 @@ func (conn *DbStruct) GetCompany(id int64) (Entities.Company, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		if err := rows.Scan(&company); err != nil {
+		if err := rows.Scan(&company.ID, &company.Name, &company.LegalForm); err != nil {
 			return company, err
 		}
 	}
@@ -48,7 +48,7 @@ func (conn *DbStruct) DeleteCompany(id int64) error {
 }
 
 func (conn *DbStruct) GetEmployeesByCompanyId(id int64) ([]Entities.Employee, error) {
-	rows, err := conn.db.Query("SELECT * from employee WHERE company_id = $1", id)
+	rows, err := conn.db.Query("SELECT * from employees WHERE company_id = $1", id)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,8 @@ func (conn *DbStruct) GetEmployeesByCompanyId(id int64) ([]Entities.Employee, er
 	for rows.Next() {
 		employee := Entities.Employee{}
 
-		if err := rows.Scan(&employee); err != nil {
+		if err := rows.Scan(&employee.ID, &employee.Name, &employee.SecondName, &employee.Surname,
+			&employee.PhotoUrl, &employee.HireDate, &employee.Position, &employee.CompanyID); err != nil {
 			return nil, err
 		}
 		employees = append(employees, employee)

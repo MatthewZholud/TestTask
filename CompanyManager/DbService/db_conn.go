@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"github.com/lib/pq"
 )
 
 type ServeDb interface {
@@ -19,10 +20,8 @@ type DbStruct struct {
 func Db_Conn() {
 
 	//PsqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-	//	os.Getenv("POSTGRES_HOST"), os.Getenv("POSTGRES_PORT"), os.Getenv("POSTGRES_USER"),
-	//	os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_DB"))
-	//PsqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 	//	"postgresdb", "5432", "postgres", "mypassword", "time_tracker")
+	_ = pq.Efatal
 
 	config := DBConfig{}
 

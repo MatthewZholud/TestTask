@@ -49,13 +49,13 @@ func PutCompany(w http.ResponseWriter, r *http.Request) {
 func GetCompany(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	company := Entities.Company{}
-	id, err := strconv.Atoi(mux.Vars(r)["id"])
+	id, err := strconv.Atoi(mux.Vars(r)["companyId"])
 	if err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid ID supplied")
 		return
 	}
 	company.ID = int64(id)
-
+	w.WriteHeader(http.StatusOK)
 	company, err = DbService.Conn.GetCompany(company.ID)
 	if err != nil {
 		log.Println(err)
@@ -69,7 +69,7 @@ func GetCompany(w http.ResponseWriter, r *http.Request) {
 func PostCompanyByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	company := Entities.Company{}
-	id, err := strconv.Atoi(mux.Vars(r)["id"])
+	id, err := strconv.Atoi(mux.Vars(r)["companyId"])
 	if err != nil || id < 1 {
 		respondWithError(w, http.StatusMethodNotAllowed, "Invalid input")
 		return
@@ -92,11 +92,11 @@ func PostCompanyByID(w http.ResponseWriter, r *http.Request) {
 func DeleteCompanyByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	company := Entities.Company{}
-	if IsNumericAndPositive(mux.Vars(r)["id"]) != true {
+	if IsNumericAndPositive(mux.Vars(r)["companyId"]) != true {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	id, err := strconv.Atoi(mux.Vars(r)["id"])
+	id, err := strconv.Atoi(mux.Vars(r)["companyId"])
 	if err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid ID supplied")
 		return
@@ -113,7 +113,7 @@ func DeleteCompanyByID(w http.ResponseWriter, r *http.Request) {
 func GetEmployeeByCompanyID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	company := Entities.Company{}
-	id, err := strconv.Atoi(mux.Vars(r)["id"])
+	id, err := strconv.Atoi(mux.Vars(r)["companyId"])
 	if err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid ID supplied")
 		return

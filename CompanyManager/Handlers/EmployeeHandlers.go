@@ -54,7 +54,6 @@ func GetEmployee(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	employee.ID = int64(id)
-
 	employee, err = DbService.Conn.GetEmployee(employee.ID)
 	if err != nil {
 		log.Println(err)

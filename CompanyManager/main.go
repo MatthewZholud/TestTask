@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 	"github.com/MatthewZholud/TestTask/CompanyManager/DbService"
+	"github.com/lib/pq"
 	"log"
 	"net/http"
 
 	"github.com/MatthewZholud/TestTask/CompanyManager/Handlers"
 	"github.com/gorilla/mux"
+	_ "github.com/lib/pq"
 )
 
 func newRouter() *mux.Router {
@@ -31,7 +33,7 @@ func newRouter() *mux.Router {
 
 func main() {
 	fmt.Println("Starting server...")
-
+	_ = pq.Efatal
 	DbService.Db_Conn()
 
 	r := newRouter()
