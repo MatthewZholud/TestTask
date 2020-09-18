@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"github.com/lib/pq"
+	_ "github.com/lib/pq"
 )
 
 type ServeDb interface {
@@ -16,12 +16,10 @@ type DbStruct struct {
 	db *sql.DB
 }
 
-
 func Db_Conn() {
 
 	//PsqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 	//	"postgresdb", "5432", "postgres", "mypassword", "time_tracker")
-	_ = pq.Efatal
 
 	config := DBConfig{}
 
